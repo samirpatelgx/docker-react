@@ -11,3 +11,24 @@ before_install:
 #All commands that need to be executed to run our test
 script:
   - docker run samirpatelgx/docker-react npm run test -- --coverage
+#deployment information.
+deploy:
+  #You can choose different kinds of providers
+  provider: elasticbeanstalk
+  #region you want to deploy your code after tests finish
+  region: "us-east-1"
+  #app name on elasticbeanstalk
+  app: "docker-react"
+  #environment
+  env: "Docker-env"
+  #s3 bucket name
+  bucket_name: elasticbeanstalk-us-east-1-128390189322
+  #You can find this in the s3 bucket. It should be the name of the bucket.
+  #if it doesn't exist, it should be the same as app name.
+  bucket_path: "docker-react"
+  #branch name on github
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
