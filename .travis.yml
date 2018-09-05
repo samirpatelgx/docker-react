@@ -1,0 +1,13 @@
+#sudo is required in travis ci
+sudo: required
+#services in travis
+services:
+  #install docker service
+  - docker
+#before running tests/deploying application
+before_install:
+  #we would like to build our image before this
+  -docker build -t samirpatelgx/docker-react -f Dockerfile.dev .
+#All commands that need to be executed to run our test
+script:
+  - docker run samirpatelgx/docker-react npm run test -- --coverage
